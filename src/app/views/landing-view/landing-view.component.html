@@ -1,0 +1,13 @@
+<div class="slo-navigation-container">
+  <app-header></app-header>
+  <mat-sidenav-container class="slo-sidenav-container">
+    <mat-sidenav role="navigation" [opened]="false">
+      <app-navigation></app-navigation>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

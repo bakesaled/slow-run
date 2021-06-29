@@ -12,6 +12,10 @@
         },
         "@schematics/angular:application": {
           "strict": true
+        },
+        "@ngneat/scam:component": {
+          "style": "scss",
+          "changeDetection": "OnPush"
         }
       },
       "root": "",
