@@ -4,6 +4,7 @@ import { LandingViewComponent } from './landing-view.component';
 import { LandingViewModule } from './landing-view.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { DashboardViewModule } from './dashboard-view/dashboard-view.module';
 
 describe('LandingViewComponent', () => {
   let component: LandingViewComponent;
@@ -11,7 +12,12 @@ describe('LandingViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LandingViewModule, NoopAnimationsModule, RouterTestingModule],
+      imports: [
+        LandingViewModule,
+        NoopAnimationsModule,
+        RouterTestingModule,
+        DashboardViewModule,
+      ],
     }).compileComponents();
   });
 

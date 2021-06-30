@@ -1,7 +1,10 @@
 <div class="slo-navigation-container">
   <app-header></app-header>
   <mat-sidenav-container class="slo-sidenav-container">
-    <mat-sidenav role="navigation" [opened]="false">
+    <mat-sidenav
+      role="navigation"
+      [opened]="sidenavUiQuery.selectIsOpen$ | async"
+    >
       <app-navigation></app-navigation>
     </mat-sidenav>
     <mat-sidenav-content>

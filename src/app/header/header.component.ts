@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { SidenavUiService } from '../views/landing-view/state/sidenav-ui.service';
 
 @Component({
   selector: 'app-header',
@@ -16,11 +17,13 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  constructor(private sidenavUiService: SidenavUiService) {}
 
   ngOnInit(): void {}
 
-  onToggleSidenav() {}
+  onToggleSidenav() {
+    this.sidenavUiService.toggleIsOpen();
+  }
 }
 
 @NgModule({
