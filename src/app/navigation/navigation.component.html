@@ -1,1 +1,13 @@
-<section class="slo-sidenav-container">sidenav works!</section>
+<section class="slo-sidenav-container">
+  <mat-nav-list>
+    <a
+      mat-list-item
+      [routerLink]="item.link"
+      routerLinkActive="active-list-item"
+      *ngFor="let item of navItems"
+    >
+      <mat-icon>{{ item.icon }}</mat-icon
+      >{{ item.text }}
+    </a>
+  </mat-nav-list>
+</section>

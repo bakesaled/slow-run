@@ -1,5 +1,9 @@
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
-import { SIDENAV_UI_IS_OPEN, SidenavUi } from './sidenav-ui.model';
+import {
+  SIDENAV_UI_IS_OPEN,
+  SIDENAV_UI_NAV_ITEMS,
+  SidenavUi,
+} from './sidenav-ui.model';
 import { Injectable } from '@angular/core';
 
 export interface SidenavUiState extends EntityState<SidenavUi> {
@@ -9,6 +13,7 @@ export interface SidenavUiState extends EntityState<SidenavUi> {
 const initialState = {
   ui: {
     isOpen: SIDENAV_UI_IS_OPEN,
+    navItems: SIDENAV_UI_NAV_ITEMS,
   },
 };
 

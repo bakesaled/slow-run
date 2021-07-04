@@ -3,8 +3,13 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   NgModule,
+  Input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { NavItem } from '../views/landing-view/state/nav-item';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -13,6 +18,8 @@ import { CommonModule } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent implements OnInit {
+  @Input()
+  navItems: NavItem[] | undefined | null = [];
   constructor() {}
 
   ngOnInit(): void {}
@@ -20,7 +27,7 @@ export class NavigationComponent implements OnInit {
 
 @NgModule({
   declarations: [NavigationComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, MatListModule, MatIconModule, RouterModule],
   exports: [NavigationComponent],
 })
 export class NavigationComponentModule {}

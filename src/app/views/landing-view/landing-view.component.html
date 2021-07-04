@@ -3,9 +3,12 @@
   <mat-sidenav-container class="slo-sidenav-container">
     <mat-sidenav
       role="navigation"
+      mode="side"
       [opened]="sidenavUiQuery.selectIsOpen$ | async"
     >
-      <app-navigation></app-navigation>
+      <app-navigation
+        [navItems]="sidenavUiQuery.navItems$ | async"
+      ></app-navigation>
     </mat-sidenav>
     <mat-sidenav-content>
       <main>

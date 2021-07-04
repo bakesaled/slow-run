@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingViewComponent } from './landing-view.component';
-import { DashboardViewComponent } from './dashboard-view/dashboard-view.component';
 
 const routes: Routes = [
   {
@@ -9,8 +8,23 @@ const routes: Routes = [
     component: LandingViewComponent,
     children: [
       {
-        path: '',
-        component: DashboardViewComponent,
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./dashboard-view/dashboard-view.module').then(
+            (module) => module.DashboardViewModule
+          ),
+      },
+      {
+        path: 'activities',
+        loadChildren: () =>
+          import('./activity-view/activity-view.module').then(
+            (module) => module.ActivityViewModule
+          ),
+      },
+      {
+        path: '**',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
       },
     ],
   },
