@@ -1,1 +1,4 @@
-<p>activity-view works!</p>
+<app-activity-table
+  [tableColumnDefs]="tableColumnDefs"
+  [dataSource]="(activityUiQuery.dataSource$ | async)!"
+></app-activity-table>

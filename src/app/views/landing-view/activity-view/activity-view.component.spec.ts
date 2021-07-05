@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ActivityViewComponent } from './activity-view.component';
+import { ActivityViewModule } from './activity-view.module';
 
 describe('ActivityViewComponent', () => {
   let component: ActivityViewComponent;
@@ -8,9 +9,8 @@ describe('ActivityViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActivityViewComponent ]
-    })
-    .compileComponents();
+      imports: [ActivityViewModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

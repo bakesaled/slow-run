@@ -3,15 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { ActivityViewRoutingModule } from './activity-view-routing.module';
 import { ActivityViewComponent } from './activity-view.component';
-
+import { ActivityTableComponentModule } from '../../../activity-table/activity-table.component';
 
 @NgModule({
-  declarations: [
-    ActivityViewComponent
-  ],
+  declarations: [ActivityViewComponent],
   imports: [
     CommonModule,
-    ActivityViewRoutingModule
-  ]
+    ActivityViewRoutingModule,
+    ActivityTableComponentModule,
+  ],
 })
-export class ActivityViewModule { }
+export class ActivityViewModule {}
