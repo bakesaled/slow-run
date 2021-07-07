@@ -4,5 +4,15 @@
   *ngIf="dataSource.filteredData.length > 0"
   [trackBy]="trackRow"
 >
+  <ng-container *ngFor="let col of tableColumnDefs; let index = index">
+    <ng-container *ngIf="col.columnDefName" [matColumnDef]="col.columnDefName">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ col.headerText }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{ element[col.columnDefName] }}
+      </td>
+    </ng-container>
+  </ng-container>
 </app-table>
 <div *ngIf="dataSource.filteredData.length === 0">No activities found</div>

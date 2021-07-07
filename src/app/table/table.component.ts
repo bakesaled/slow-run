@@ -5,19 +5,45 @@ import {
   NgModule,
   Input,
   TrackByFunction,
+  AfterContentInit,
+  QueryList,
+  ContentChildren,
+  ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import {
+  MatColumnDef,
+  MatHeaderRowDef,
+  MatRowDef,
+  MatTable,
+  MatTableDataSource,
+  MatTableModule,
+} from '@angular/material/table';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'app-table',
+  },
 })
-export class TableComponent<T> implements OnInit {
+export class TableComponent<T> implements OnInit, AfterContentInit {
+  @ContentChildren(MatHeaderRowDef) headerRowDefs:
+    | QueryList<MatHeaderRowDef>
+    | undefined = undefined;
+  @ContentChildren(MatRowDef) rowDefs: QueryList<MatRowDef<T>> | undefined =
+    undefined;
+  @ContentChildren(MatColumnDef) columnDefs:
+    | QueryList<MatColumnDef>
+    | undefined = undefined;
+
+  @ViewChild(MatTable, { static: true }) table: MatTable<T> | undefined =
+    undefined;
+
   @Input()
-  displayedColumns: (string | undefined)[] = [];
+  displayedColumns: (string | undefined)[] | undefined = [];
 
   @Input()
   dataSource: MatTableDataSource<T> = new MatTableDataSource<T>();
@@ -28,6 +54,24 @@ export class TableComponent<T> implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  ngAfterContentInit() {
+    if (this.columnDefs) {
+      this.columnDefs.forEach((columnDef) =>
+        this.table ? this.table.addColumnDef(columnDef) : undefined
+      );
+    }
+    if (this.rowDefs) {
+      this.rowDefs.forEach((rowDef) =>
+        this.table ? this.table.addRowDef(rowDef) : undefined
+      );
+    }
+    if (this.headerRowDefs) {
+      this.headerRowDefs.forEach((headerRowDef) =>
+        this.table ? this.table.addHeaderRowDef(headerRowDef) : undefined
+      );
+    }
+  }
 }
 
 @NgModule({
