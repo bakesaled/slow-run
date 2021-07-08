@@ -1,0 +1,17 @@
+<ng-container matColumnDef>
+  <th
+    mat-header-cell
+    class="slo-align-center slo-numeric-header"
+    *matHeaderCellDef
+  >
+    {{ headerCellText || columnDefName }}
+  </th>
+  <td
+    mat-cell
+    class="slo-align-right slo-numeric-cell"
+    [ngClass]="{ 'slo-numeric-total': isTotal }"
+    *matCellDef="let element"
+  >
+    {{ getData(element) | number: '0.2' }}
+  </td>
+</ng-container>

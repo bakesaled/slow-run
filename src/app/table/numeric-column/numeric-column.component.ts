@@ -3,10 +3,10 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   NgModule,
+  OnDestroy,
   ViewChild,
   Input,
   Optional,
-  OnDestroy,
   ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,12 +17,12 @@ import {
 } from '@angular/material/table';
 
 @Component({
-  selector: 'app-date-column',
-  templateUrl: './date-column.component.html',
-  styleUrls: ['./date-column.component.scss'],
+  selector: 'app-numeric-column',
+  templateUrl: './numeric-column.component.html',
+  styleUrls: ['./numeric-column.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DateColumnComponent<T> implements OnInit, OnDestroy {
+export class NumericColumnComponent<T> implements OnInit, OnDestroy {
   @ViewChild(MatColumnDef, { static: true }) columnDef!: MatColumnDef;
 
   @Input()
@@ -55,8 +55,8 @@ export class DateColumnComponent<T> implements OnInit, OnDestroy {
 }
 
 @NgModule({
-  declarations: [DateColumnComponent],
+  declarations: [NumericColumnComponent],
   imports: [CommonModule, MatTableModule],
-  exports: [DateColumnComponent],
+  exports: [NumericColumnComponent],
 })
-export class DateColumnComponentModule {}
+export class NumericColumnComponentModule {}

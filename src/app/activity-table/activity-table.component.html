@@ -6,7 +6,11 @@
 >
   <ng-container *ngFor="let col of tableColumnDefs; let index = index">
     <ng-container
-      *ngIf="col.columnDefName && col.columnDefName !== 'date'"
+      *ngIf="
+        col.columnDefName &&
+        col.columnDefName !== 'date' &&
+        col.columnDefName !== 'distance'
+      "
       [matColumnDef]="col.columnDefName"
     >
       <th mat-header-cell *matHeaderCellDef>
@@ -23,6 +27,14 @@
         [columnDefName]="col.columnDefName"
         [headerCellText]="col.headerText"
       ></app-date-column>
+    </ng-container>
+
+    <!-- Distance column -->
+    <ng-container *ngIf="col.columnDefName && col.columnDefName === 'distance'">
+      <app-numeric-column
+        [columnDefName]="col.columnDefName"
+        [headerCellText]="col.headerText"
+      ></app-numeric-column>
     </ng-container>
   </ng-container>
 </app-table>

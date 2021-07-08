@@ -5,6 +5,6 @@ export interface Activity extends TableRow {
   id?: string;
   date?: Date;
   type?: ActivityType;
-  duration?: number;
-  distance?: number;
+  duration?: number; //seconds
+  distance?: number; //meters
 }

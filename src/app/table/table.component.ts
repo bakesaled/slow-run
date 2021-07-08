@@ -20,6 +20,7 @@ import {
   MatTableModule,
 } from '@angular/material/table';
 import { DateColumnComponent } from './date-column/date-column.component';
+import { NumericColumnComponent } from './numeric-column/numeric-column.component';
 
 @Component({
   selector: 'app-table',
@@ -36,6 +37,9 @@ export class TableComponent<T> implements OnInit, AfterContentInit {
   @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
   @ContentChildren(DateColumnComponent) dateColumns!: QueryList<
     DateColumnComponent<T>
+  >;
+  @ContentChildren(NumericColumnComponent) numericColumns!: QueryList<
+    NumericColumnComponent<T>
   >;
 
   @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
@@ -56,6 +60,9 @@ export class TableComponent<T> implements OnInit, AfterContentInit {
   ngAfterContentInit() {
     this.dateColumns.forEach((dateCol) =>
       this.table.addColumnDef(dateCol.columnDef)
+    );
+    this.numericColumns.forEach((numCol) =>
+      this.table.addColumnDef(numCol.columnDef)
     );
     this.columnDefs.forEach((columnDef) => this.table.addColumnDef(columnDef));
     this.rowDefs.forEach((rowDef) => this.table.addRowDef(rowDef));

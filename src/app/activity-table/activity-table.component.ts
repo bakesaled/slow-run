@@ -12,6 +12,7 @@ import { TableColumnDef } from '../table/table-column-def';
 import { TableRow } from '../table/table-row';
 import { Activity } from '../views/landing-view/activity-view/state/activity.model';
 import { DateColumnComponentModule } from '../table/date-column/date-column.component';
+import { NumericColumnComponentModule } from '../table/numeric-column/numeric-column.component';
 
 @Component({
   selector: 'app-activity-table',
@@ -48,6 +49,7 @@ export class ActivityTableComponent implements OnInit {
     TableComponentModule,
     MatTableModule,
     DateColumnComponentModule,
+    NumericColumnComponentModule,
   ],
   exports: [ActivityTableComponent],
 })
