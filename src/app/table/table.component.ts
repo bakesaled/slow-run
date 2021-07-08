@@ -19,6 +19,7 @@ import {
   MatTableDataSource,
   MatTableModule,
 } from '@angular/material/table';
+import { DateColumnComponent } from './date-column/date-column.component';
 
 @Component({
   selector: 'app-table',
@@ -30,47 +31,37 @@ import {
   },
 })
 export class TableComponent<T> implements OnInit, AfterContentInit {
-  @ContentChildren(MatHeaderRowDef) headerRowDefs:
-    | QueryList<MatHeaderRowDef>
-    | undefined = undefined;
-  @ContentChildren(MatRowDef) rowDefs: QueryList<MatRowDef<T>> | undefined =
-    undefined;
-  @ContentChildren(MatColumnDef) columnDefs:
-    | QueryList<MatColumnDef>
-    | undefined = undefined;
+  @ContentChildren(MatHeaderRowDef) headerRowDefs!: QueryList<MatHeaderRowDef>;
+  @ContentChildren(MatRowDef) rowDefs!: QueryList<MatRowDef<T>>;
+  @ContentChildren(MatColumnDef) columnDefs!: QueryList<MatColumnDef>;
+  @ContentChildren(DateColumnComponent) dateColumns!: QueryList<
+    DateColumnComponent<T>
+  >;
 
-  @ViewChild(MatTable, { static: true }) table: MatTable<T> | undefined =
-    undefined;
+  @ViewChild(MatTable, { static: true }) table!: MatTable<T>;
 
   @Input()
-  displayedColumns: (string | undefined)[] | undefined = [];
+  displayedColumns!: string[];
 
   @Input()
-  dataSource: MatTableDataSource<T> = new MatTableDataSource<T>();
+  dataSource!: MatTableDataSource<T>;
 
   @Input()
-  trackBy: TrackByFunction<T> = (index: number, _: T) => index;
+  trackBy!: TrackByFunction<T>;
 
   constructor() {}
 
   ngOnInit(): void {}
 
   ngAfterContentInit() {
-    if (this.columnDefs) {
-      this.columnDefs.forEach((columnDef) =>
-        this.table ? this.table.addColumnDef(columnDef) : undefined
-      );
-    }
-    if (this.rowDefs) {
-      this.rowDefs.forEach((rowDef) =>
-        this.table ? this.table.addRowDef(rowDef) : undefined
-      );
-    }
-    if (this.headerRowDefs) {
-      this.headerRowDefs.forEach((headerRowDef) =>
-        this.table ? this.table.addHeaderRowDef(headerRowDef) : undefined
-      );
-    }
+    this.dateColumns.forEach((dateCol) =>
+      this.table.addColumnDef(dateCol.columnDef)
+    );
+    this.columnDefs.forEach((columnDef) => this.table.addColumnDef(columnDef));
+    this.rowDefs.forEach((rowDef) => this.table.addRowDef(rowDef));
+    this.headerRowDefs.forEach((headerRowDef) =>
+      this.table.addHeaderRowDef(headerRowDef)
+    );
   }
 }
 

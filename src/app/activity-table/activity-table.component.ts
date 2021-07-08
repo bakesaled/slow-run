@@ -11,6 +11,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { TableColumnDef } from '../table/table-column-def';
 import { TableRow } from '../table/table-row';
 import { Activity } from '../views/landing-view/activity-view/state/activity.model';
+import { DateColumnComponentModule } from '../table/date-column/date-column.component';
 
 @Component({
   selector: 'app-activity-table',
@@ -19,20 +20,20 @@ import { Activity } from '../views/landing-view/activity-view/state/activity.mod
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActivityTableComponent implements OnInit {
-  displayedColumns: (string | undefined)[] | undefined = [];
+  displayedColumns: string[] = [];
 
   @Input()
-  tableColumnDefs: TableColumnDef[] | undefined = undefined;
+  tableColumnDefs!: TableColumnDef[];
 
   @Input()
-  dataSource: MatTableDataSource<TableRow> = new MatTableDataSource<TableRow>(
-    []
-  );
+  dataSource!: MatTableDataSource<TableRow>;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.displayedColumns = this.tableColumnDefs?.map((x) => x.columnDefName);
+    this.displayedColumns = this.tableColumnDefs?.map(
+      (x) => x.columnDefName
+    ) as string[];
   }
 
   trackRow(index: number, _: Activity): string {
@@ -42,7 +43,12 @@ export class ActivityTableComponent implements OnInit {
 
 @NgModule({
   declarations: [ActivityTableComponent],
-  imports: [CommonModule, TableComponentModule, MatTableModule],
+  imports: [
+    CommonModule,
+    TableComponentModule,
+    MatTableModule,
+    DateColumnComponentModule,
+  ],
   exports: [ActivityTableComponent],
 })
 export class ActivityTableComponentModule {}

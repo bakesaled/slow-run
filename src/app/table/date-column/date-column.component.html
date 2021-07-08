@@ -1,0 +1,17 @@
+<ng-container matColumnDef>
+  <th
+    mat-header-cell
+    class="ps-align-center ps-numeric-header"
+    *matHeaderCellDef
+  >
+    {{ headerCellText || columnDefName }}
+  </th>
+  <td
+    mat-cell
+    class="ps-align-right ps-numeric-cell"
+    [ngClass]="{ 'ps-numeric-total': isTotal }"
+    *matCellDef="let element"
+  >
+    {{ getData(element) | date: 'dd/MM/yyyy' }}
+  </td>
+</ng-container>

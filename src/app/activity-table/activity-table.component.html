@@ -1,11 +1,14 @@
 <app-table
   [displayedColumns]="displayedColumns"
   [dataSource]="dataSource"
-  *ngIf="dataSource.filteredData.length > 0"
+  *ngIf="dataSource && dataSource.filteredData.length > 0"
   [trackBy]="trackRow"
 >
   <ng-container *ngFor="let col of tableColumnDefs; let index = index">
-    <ng-container *ngIf="col.columnDefName" [matColumnDef]="col.columnDefName">
+    <ng-container
+      *ngIf="col.columnDefName && col.columnDefName !== 'date'"
+      [matColumnDef]="col.columnDefName"
+    >
       <th mat-header-cell *matHeaderCellDef>
         {{ col.headerText }}
       </th>
@@ -13,6 +16,16 @@
         {{ element[col.columnDefName] }}
       </td>
     </ng-container>
+
+    <!-- Date column -->
+    <ng-container *ngIf="col.columnDefName && col.columnDefName === 'date'">
+      <app-date-column
+        [columnDefName]="col.columnDefName"
+        [headerCellText]="col.headerText"
+      ></app-date-column>
+    </ng-container>
   </ng-container>
 </app-table>
-<div *ngIf="dataSource.filteredData.length === 0">No activities found</div>
+<div *ngIf="!dataSource || dataSource.filteredData.length === 0">
+  No activities found
+</div>
