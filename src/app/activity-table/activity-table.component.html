@@ -9,7 +9,8 @@
       *ngIf="
         col.columnDefName &&
         col.columnDefName !== 'date' &&
-        col.columnDefName !== 'distance'
+        col.columnDefName !== 'distance' &&
+        col.columnDefName !== 'duration'
       "
       [matColumnDef]="col.columnDefName"
     >
@@ -29,11 +30,21 @@
       ></app-date-column>
     </ng-container>
 
+    <!-- Duration column -->
+    <ng-container *ngIf="col.columnDefName && col.columnDefName === 'duration'">
+      <app-numeric-column
+        [columnDefName]="col.columnDefName"
+        [headerCellText]="col.headerText"
+        [dynamicPipeObj]="durationPipeObj"
+      ></app-numeric-column>
+    </ng-container>
+
     <!-- Distance column -->
     <ng-container *ngIf="col.columnDefName && col.columnDefName === 'distance'">
       <app-numeric-column
         [columnDefName]="col.columnDefName"
         [headerCellText]="col.headerText"
+        [dynamicPipeObj]="distancePipeObj"
       ></app-numeric-column>
     </ng-container>
   </ng-container>

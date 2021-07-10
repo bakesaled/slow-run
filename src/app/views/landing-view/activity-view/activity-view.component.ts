@@ -41,8 +41,8 @@ export class ActivityViewComponent implements OnInit {
         id: '1',
         date: new Date(),
         type: ActivityType.run,
-        distance: 2,
-        duration: 3,
+        distance: 2000,
+        duration: 3000,
       },
     ]);
   }

@@ -15,6 +15,7 @@ import {
   MatTable,
   MatTableModule,
 } from '@angular/material/table';
+import { DynamicPipeModule, DynamicPipeObj } from '../../dynamic/dynamic.pipe';
 
 @Component({
   selector: 'app-numeric-column',
@@ -32,6 +33,7 @@ export class NumericColumnComponent<T> implements OnInit, OnDestroy {
 
   @Input() dataAccessor!: (data: T, name: string) => string;
   @Input() isTotal: boolean = false;
+  @Input() dynamicPipeObj!: DynamicPipeObj;
 
   constructor(
     @Optional() public table: MatTable<any>,
@@ -56,7 +58,7 @@ export class NumericColumnComponent<T> implements OnInit, OnDestroy {
 
 @NgModule({
   declarations: [NumericColumnComponent],
-  imports: [CommonModule, MatTableModule],
+  imports: [CommonModule, MatTableModule, DynamicPipeModule],
   exports: [NumericColumnComponent],
 })
 export class NumericColumnComponentModule {}

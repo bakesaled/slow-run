@@ -13,6 +13,9 @@ import { TableRow } from '../table/table-row';
 import { Activity } from '../views/landing-view/activity-view/state/activity.model';
 import { DateColumnComponentModule } from '../table/date-column/date-column.component';
 import { NumericColumnComponentModule } from '../table/numeric-column/numeric-column.component';
+import { DynamicPipeObj } from '../dynamic/dynamic.pipe';
+import { DistancePipe } from '../distance/distance.pipe';
+import { DurationPipe } from '../duration/duration.pipe';
 
 @Component({
   selector: 'app-activity-table',
@@ -40,6 +43,15 @@ export class ActivityTableComponent implements OnInit {
   trackRow(index: number, _: Activity): string {
     return `${index}`;
   }
+
+  distancePipeObj: DynamicPipeObj = {
+    pipe: DistancePipe,
+    args: 'kilometers',
+  };
+
+  durationPipeObj: DynamicPipeObj = {
+    pipe: DurationPipe,
+  };
 }
 
 @NgModule({

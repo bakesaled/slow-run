@@ -12,6 +12,9 @@
     [ngClass]="{ 'slo-numeric-total': isTotal }"
     *matCellDef="let element"
   >
-    {{ getData(element) | number: '0.2' }}
+    {{
+      getData(element) | dynamicPipe: dynamicPipeObj.pipe:dynamicPipeObj.args
+    }}
+    <!--    {{ getData(element) | number: '0.2' }}-->
   </td>
 </ng-container>
