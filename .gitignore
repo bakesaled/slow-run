@@ -2,6 +2,7 @@
 
 # compiled output
 /client/dist
+/server/dist
 /tmp
 /out-tsc
 # Only exists if Bazel was run
@@ -9,9 +10,15 @@
 
 # dependencies
 /client/node_modules
+/server/node_modules
 
 # profiling files
 chrome-profiler-events*.json
+
+# Tests
+/client/coverage
+/server/coverage
+/server/.nyc_output
 
 # IDEs and editors
 /.idea

@@ -1,5 +1,5 @@
 # Add files here to ignore them from prettier formatting
 
-/client/dist
-/client/coverage
-/client/node_modules
+/dist
+/coverage
+/node_modules
