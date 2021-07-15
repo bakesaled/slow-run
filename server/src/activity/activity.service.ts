@@ -1,38 +1,44 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { ActivityEntity } from './entity/activity.entity';
+import { ActivityEntity } from '@activity/entity/activity.entity';
 import { ActivityDto } from './dto/activity.dto';
-import { activities } from '../mock/activities.mock';
-import { toPromise } from '../data-to-promise/data-to-promise';
 import { toActivityDto } from './mapper';
 import { ActivityCreateDto } from './dto/activity-create.dto';
 import { v4 as uuidv4 } from 'uuid';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ActivityService {
-  activities: ActivityEntity[] = activities;
+  constructor(
+    @InjectRepository(ActivityEntity)
+    private readonly activityRepo: Repository<ActivityEntity>,
+  ) {}
 
   async getAllActivities(): Promise<ActivityDto[]> {
-    return activities.map((activity) => toActivityDto(activity));
+    const activities = await this.activityRepo.find();
+    return activities.map((act) => toActivityDto(act));
   }
 
   async getOneActivity(id: string): Promise<ActivityDto> {
-    const activity = this.activities.find((act) => act.id === id);
+    const activity = await this.activityRepo.findOne({
+      where: { id },
+    });
     if (!activity) {
       throw new HttpException(`Activity doesn't exist`, HttpStatus.BAD_REQUEST);
     }
 
-    return toPromise(toActivityDto(activity));
+    return toActivityDto(activity);
   }
 
   async createActivity(activityDto: ActivityCreateDto): Promise<ActivityDto> {
     const { name } = activityDto;
 
-    const activity: ActivityEntity = {
+    const activity: ActivityEntity = await this.activityRepo.create({
       id: uuidv4(),
       name,
-    };
+    });
 
-    this.activities.push(activity);
-    return toPromise(toActivityDto(activity));
+    await this.activityRepo.save(activity);
+    return toActivityDto(activity);
   }
 }

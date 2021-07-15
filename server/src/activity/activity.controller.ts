@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ActivityDto } from './dto/activity.dto';
 import { ActivityService } from './activity.service';
 import { ActivityCreateDto } from './dto/activity-create.dto';
@@ -18,6 +26,7 @@ export class ActivityController {
   }
 
   @Post()
+  @UsePipes(new ValidationPipe())
   async create(
     @Body() activityCreateDto: ActivityCreateDto,
   ): Promise<ActivityDto> {
