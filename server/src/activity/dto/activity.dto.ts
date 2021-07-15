@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { UserDto } from '@user/dto/user.dto';
 
 export class ActivityDto {
   @IsNotEmpty()
@@ -8,4 +9,6 @@ export class ActivityDto {
   name: string;
 
   createdAt?: Date;
+
+  owner: UserDto;
 }
