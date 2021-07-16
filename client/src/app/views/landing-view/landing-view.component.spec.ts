@@ -5,6 +5,7 @@ import { LandingViewModule } from './landing-view.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardViewModule } from './dashboard-view/dashboard-view.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LandingViewComponent', () => {
   let component: LandingViewComponent;
@@ -17,6 +18,7 @@ describe('LandingViewComponent', () => {
         NoopAnimationsModule,
         RouterTestingModule,
         DashboardViewModule,
+        HttpClientTestingModule,
       ],
     }).compileComponents();
   });

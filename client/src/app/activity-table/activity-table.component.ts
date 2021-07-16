@@ -13,9 +13,9 @@ import { TableRow } from '../table/table-row';
 import { Activity } from '../views/landing-view/activity-view/state/activity.model';
 import { DateColumnComponentModule } from '../table/date-column/date-column.component';
 import { NumericColumnComponentModule } from '../table/numeric-column/numeric-column.component';
-import { DynamicPipeObj } from '../dynamic/dynamic.pipe';
-import { DistancePipe } from '../distance/distance.pipe';
-import { DurationPipe } from '../duration/duration.pipe';
+import { DynamicPipeObj } from '../pipes/dynamic/dynamic.pipe';
+import { DistancePipe } from '../pipes/distance/distance.pipe';
+import { DurationPipe } from '../pipes/duration/duration.pipe';
 
 @Component({
   selector: 'app-activity-table',

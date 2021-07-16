@@ -1,5 +1,9 @@
 <div class="slo-navigation-container">
-  <app-header></app-header>
+  <app-header
+    (menuButtonClick)="onMenuButtonClick()"
+    (logoutButtonClick)="onLogoutButtonClick()"
+    [title]="'slow run'"
+  ></app-header>
   <mat-sidenav-container class="slo-sidenav-container">
     <mat-sidenav
       role="navigation"

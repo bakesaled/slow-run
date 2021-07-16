@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="onToggleSidenav()">
+  <button mat-icon-button (click)="onMenuButtonClick()">
     <mat-icon>menu</mat-icon>
   </button>
-  <p>header works!</p>
+  {{ title }}
   <button (click)="onLogoutClick()">Log out</button>
 </mat-toolbar>

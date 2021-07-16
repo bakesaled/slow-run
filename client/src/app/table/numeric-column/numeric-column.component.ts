@@ -15,7 +15,10 @@ import {
   MatTable,
   MatTableModule,
 } from '@angular/material/table';
-import { DynamicPipeModule, DynamicPipeObj } from '../../dynamic/dynamic.pipe';
+import {
+  DynamicPipeModule,
+  DynamicPipeObj,
+} from '../../pipes/dynamic/dynamic.pipe';
 
 @Component({
   selector: 'app-numeric-column',

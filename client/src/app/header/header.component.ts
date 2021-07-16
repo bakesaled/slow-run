@@ -3,14 +3,14 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   NgModule,
+  Output,
+  EventEmitter,
+  Input,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { SidenavUiService } from '../views/landing-view/state/sidenav-ui.service';
-import { SessionService } from '../views/login-view/state/session.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -19,21 +19,20 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
-  constructor(
-    private sidenavUiService: SidenavUiService,
-    private sessionService: SessionService,
-    private router: Router
-  ) {}
+  @Input() title: string | undefined;
+  @Output() menuButtonClick: EventEmitter<void> = new EventEmitter();
+  @Output() logoutButtonClick: EventEmitter<void> = new EventEmitter();
+
+  constructor() {}
 
   ngOnInit(): void {}
 
-  onToggleSidenav() {
-    this.sidenavUiService.toggleIsOpen();
+  onLogoutClick() {
+    this.logoutButtonClick.emit();
   }
 
-  onLogoutClick() {
-    this.sessionService.logout();
-    this.router.navigate(['/login']);
+  onMenuButtonClick() {
+    this.menuButtonClick.emit();
   }
 }
 

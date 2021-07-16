@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SessionQuery } from '../views/login-view/state/session.query';
+import { SessionQuery } from './state/session.query';
 
 @Injectable({
   providedIn: 'root',
