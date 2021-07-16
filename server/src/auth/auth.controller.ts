@@ -16,7 +16,7 @@ import { LoginStatus } from './login-status';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtPayload } from './jwt-payload';
 
-@Controller('api/auth')
+@Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

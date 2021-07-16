@@ -22,7 +22,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "typeorm:cli": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -f ormconfig.json",
-    "migration:generate": "yarn build && yarn typeorm:cli migration:generate -n"
+    "migration:generate": "yarn build && yarn typeorm:cli migration:generate -n",
+    "migration:create": "yarn build && yarn typeorm:cli migration:create -n"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
