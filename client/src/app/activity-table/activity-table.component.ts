@@ -10,7 +10,6 @@ import { TableComponentModule } from '../table/table.component';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { TableColumnDef } from '../table/table-column-def';
 import { TableRow } from '../table/table-row';
-import { Activity } from '../views/landing-view/activity-view/state/activity.model';
 import { DateColumnComponentModule } from '../table/date-column/date-column.component';
 import { NumericColumnComponentModule } from '../table/numeric-column/numeric-column.component';
 import { DynamicPipeObj } from '../pipes/dynamic/dynamic.pipe';
@@ -40,7 +39,7 @@ export class ActivityTableComponent implements OnInit {
     ) as string[];
   }
 
-  trackRow(index: number, _: Activity): string {
+  trackRow(index: number, _: any): string {
     return `${index}`;
   }
 

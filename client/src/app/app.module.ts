@@ -7,6 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
+import { authInterceptorProvider } from './views/login-view/auth.interceptor';
+import { errorInterceptorProvider } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +25,16 @@ import { HttpClientModule } from '@angular/common/http';
           logTrace: false,
         }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: NG_ENTITY_SERVICE_CONFIG,
+      useValue: {
+        baseUrl: 'http://localhost:4000/api',
+      },
+    },
+    authInterceptorProvider,
+    errorInterceptorProvider,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

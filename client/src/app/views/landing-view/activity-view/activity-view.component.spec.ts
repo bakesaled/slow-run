@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ActivityViewComponent } from './activity-view.component';
 import { ActivityViewModule } from './activity-view.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 
 describe('ActivityViewComponent', () => {
   let component: ActivityViewComponent;
@@ -9,7 +11,15 @@ describe('ActivityViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ActivityViewModule],
+      imports: [ActivityViewModule, HttpClientTestingModule],
+      providers: [
+        {
+          provide: NG_ENTITY_SERVICE_CONFIG,
+          useValue: {
+            baseUrl: 'http://localhost:4000/api',
+          },
+        },
+      ],
     }).compileComponents();
   });
 

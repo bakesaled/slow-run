@@ -1198,6 +1198,11 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
+"@datorama/akita-ng-entity-service@^6.1.1":
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/@datorama/akita-ng-entity-service/-/akita-ng-entity-service-6.1.1.tgz#01dd4cbf9e0064d92a3cdfbd992e236b6abaae5b"
+  integrity sha512-pzCDm3tyRHVxlnEFVdvDz6U7hCBh7UUopyqoYg9SHifhABIHt5XCdrlyx+YVBq0i4nTGdg0bgcRHhDtIXQAj9g==
+
 "@datorama/akita-ngdevtools@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@datorama/akita-ngdevtools/-/akita-ngdevtools-6.0.0.tgz#9ebeeeb41c25f0c4a4662bf27d55a54d937d3e13"

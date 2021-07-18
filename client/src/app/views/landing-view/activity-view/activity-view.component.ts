@@ -2,7 +2,9 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TableColumnDef } from '../../../table/table-column-def';
 import { ActivityViewUiQuery } from './state/activity-view-ui.query';
 import { ActivityViewUiService } from './state/activity-view-ui.service';
-import { ActivityType } from './state/activity-type.enum';
+import { ActivitiesService } from './state/activities.service';
+import { ActivitiesQuery } from './state/activities.query';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-activity-view',
@@ -32,18 +34,30 @@ export class ActivityViewComponent implements OnInit {
 
   constructor(
     public activityUiQuery: ActivityViewUiQuery,
-    private activityViewUiService: ActivityViewUiService
+    private activityViewUiService: ActivityViewUiService,
+    private activitiesService: ActivitiesService,
+    private activitiesQuery: ActivitiesQuery
   ) {}
 
   ngOnInit(): void {
-    this.activityViewUiService.updateTableRows([
-      {
-        id: '1',
-        date: new Date(),
-        type: ActivityType.run,
-        distance: 2000,
-        duration: 3000,
-      },
-    ]);
+    this.activitiesQuery
+      .selectAll()
+      .pipe(
+        tap((data) => {
+          this.activityViewUiService.updateTableRows(data);
+        })
+      )
+      .subscribe();
+
+    this.activitiesService.get().subscribe();
+    // this.activityViewUiService.updateTableRows([
+    //   {
+    //     id: '1',
+    //     date: new Date(),
+    //     type: ActivityType.run,
+    //     distance: 2000,
+    //     duration: 3000,
+    //   },
+    // ]);
   }
 }

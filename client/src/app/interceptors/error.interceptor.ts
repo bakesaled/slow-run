@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  HTTP_INTERCEPTORS,
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
@@ -44,3 +45,9 @@ export class ErrorInterceptor implements HttpInterceptor {
     );
   }
 }
+
+export const errorInterceptorProvider = {
+  provide: HTTP_INTERCEPTORS,
+  useClass: ErrorInterceptor,
+  multi: true,
+};
