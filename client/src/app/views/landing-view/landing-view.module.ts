@@ -6,6 +6,7 @@ import { LandingViewComponent } from './landing-view.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationComponentModule } from '../../navigation/navigation.component';
 import { HeaderComponentModule } from '../../header/header.component';
+import { ShowIfLoggedInDirectiveModule } from '../../directives/show-if-logged-in/show-if-logged-in.directive';
 
 @NgModule({
   declarations: [LandingViewComponent],
@@ -15,6 +16,7 @@ import { HeaderComponentModule } from '../../header/header.component';
     MatSidenavModule,
     NavigationComponentModule,
     HeaderComponentModule,
+    ShowIfLoggedInDirectiveModule,
   ],
 })
 export class LandingViewModule {}

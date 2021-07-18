@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SidenavUiQuery } from './state/sidenav-ui.query';
 import { SidenavUiService } from './state/sidenav-ui.service';
-import { SessionService } from '../login-view/state/session.service';
 import { Router } from '@angular/router';
+import { SessionService } from '../../auth/state/session.service';
+import { SessionQuery } from '../../auth/state/session.query';
 
 @Component({
   selector: 'app-landing-view',
@@ -15,6 +16,7 @@ export class LandingViewComponent implements OnInit {
     public sidenavUiQuery: SidenavUiQuery,
     private sidenavUiService: SidenavUiService,
     private sessionService: SessionService,
+    public sessionQuery: SessionQuery,
     private router: Router
   ) {}
 

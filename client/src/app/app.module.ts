@@ -8,8 +8,8 @@ import { AkitaNgDevtools } from '@datorama/akita-ngdevtools';
 import { environment } from '../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
-import { authInterceptorProvider } from './views/login-view/auth.interceptor';
 import { errorInterceptorProvider } from './interceptors/error.interceptor';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +18,7 @@ import { errorInterceptorProvider } from './interceptors/error.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    AuthModule,
     environment.production
       ? []
       : AkitaNgDevtools.forRoot({
@@ -32,7 +33,6 @@ import { errorInterceptorProvider } from './interceptors/error.interceptor';
         baseUrl: 'http://localhost:4000/api',
       },
     },
-    authInterceptorProvider,
     errorInterceptorProvider,
   ],
   bootstrap: [AppComponent],

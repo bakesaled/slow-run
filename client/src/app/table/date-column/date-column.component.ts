@@ -44,7 +44,9 @@ export class DateColumnComponent<T> implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.table.removeColumnDef(this.columnDef);
+    if (this.table) {
+      this.table.removeColumnDef(this.columnDef);
+    }
   }
 
   getData(data: T): any {

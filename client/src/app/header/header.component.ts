@@ -20,6 +20,9 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class HeaderComponent implements OnInit {
   @Input() title: string | undefined;
+  @Input() showMenu: boolean = false;
+  @Input() showLogoutButton: boolean = false;
+
   @Output() menuButtonClick: EventEmitter<void> = new EventEmitter();
   @Output() logoutButtonClick: EventEmitter<void> = new EventEmitter();
 

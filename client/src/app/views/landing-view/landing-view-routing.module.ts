@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LandingViewComponent } from './landing-view.component';
+import { AuthGuard } from '../../auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -8,7 +9,15 @@ const routes: Routes = [
     component: LandingViewComponent,
     children: [
       {
+        path: 'login',
+        loadChildren: () =>
+          import('./login-view/login-view.module').then(
+            (module) => module.LoginViewModule
+          ),
+      },
+      {
         path: 'dashboard',
+        canActivate: [AuthGuard],
         loadChildren: () =>
           import('./dashboard-view/dashboard-view.module').then(
             (module) => module.DashboardViewModule
@@ -16,6 +25,7 @@ const routes: Routes = [
       },
       {
         path: 'activities',
+        canActivate: [AuthGuard],
         loadChildren: () =>
           import('./activity-view/activity-view.module').then(
             (module) => module.ActivityViewModule

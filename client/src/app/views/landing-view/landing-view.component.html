@@ -3,6 +3,8 @@
     (menuButtonClick)="onMenuButtonClick()"
     (logoutButtonClick)="onLogoutButtonClick()"
     [title]="'slow run'"
+    [showLogoutButton]="(sessionQuery.isLoggedIn$ | async)!"
+    [showMenu]="(sessionQuery.isLoggedIn$ | async)!"
   ></app-header>
   <mat-sidenav-container class="slo-sidenav-container">
     <mat-sidenav
@@ -12,6 +14,7 @@
     >
       <app-navigation
         [navItems]="sidenavUiQuery.navItems$ | async"
+        *showIfLoggedIn="true"
       ></app-navigation>
     </mat-sidenav>
     <mat-sidenav-content>

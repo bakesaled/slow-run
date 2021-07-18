@@ -1,7 +1,15 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="onMenuButtonClick()">
+  <button mat-icon-button (click)="onMenuButtonClick()" *ngIf="showMenu">
     <mat-icon>menu</mat-icon>
   </button>
   {{ title }}
-  <button (click)="onLogoutClick()">Log out</button>
+  <span class="slo-spacer"></span>
+  <button
+    mat-icon-button
+    (click)="onLogoutClick()"
+    *ngIf="showLogoutButton"
+    title="logout"
+  >
+    <mat-icon>logout</mat-icon>
+  </button>
 </mat-toolbar>
