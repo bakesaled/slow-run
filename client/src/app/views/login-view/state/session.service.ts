@@ -1,27 +1,25 @@
 import { Injectable } from '@angular/core';
 import { SessionStore } from './session.store';
-import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { SessionState } from './session.model';
+import { SessionDataService } from './session-data.service';
 
 @Injectable({ providedIn: 'root' })
 export class SessionService {
-  constructor(private sessionStore: SessionStore, private http: HttpClient) {}
+  constructor(
+    private sessionStore: SessionStore,
+    private sessionDataService: SessionDataService
+  ) {}
 
   login(username: string, password: string) {
-    return this.http.post<any>('auth/login', { username, password }).pipe(
-      tap((user: SessionState) => {
-        if (user && user.accessToken) {
-          localStorage.setItem('currentUser', JSON.stringify(user));
-        }
-        return this.sessionStore.update(user);
+    return this.sessionDataService.login(username, password).pipe(
+      tap((sessionState: SessionState) => {
+        return this.sessionStore.login(sessionState);
       })
     );
   }
 
   logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
-    this.sessionStore.update({});
+    this.sessionStore.logout();
   }
 }

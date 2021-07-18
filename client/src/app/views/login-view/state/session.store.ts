@@ -8,4 +8,14 @@ export class SessionStore extends Store<SessionState> {
   constructor() {
     super(createInitialState());
   }
+
+  login(session: SessionState) {
+    this.update(session);
+    localStorage.setItem('session', JSON.stringify(session));
+  }
+
+  logout() {
+    localStorage.removeItem('session');
+    this.update(createInitialState());
+  }
 }

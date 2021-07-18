@@ -7,5 +7,6 @@ export function createInitialState() {
   return {
     username: undefined,
     accessToken: undefined,
+    ...JSON.parse(localStorage.getItem('session') as string),
   } as SessionState;
 }
