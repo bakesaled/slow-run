@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import 'dotenv/config';
 import { Logger } from '@nestjs/common';
 import { getDbConnectionOptions, runDbMigrations } from '@shared/utils';
+import * as cookieParser from 'cookie-parser';
 
 const port = process.env.PORT;
 
@@ -11,6 +12,9 @@ async function bootstrap() {
     AppModule.forRoot(await getDbConnectionOptions(process.env.NODE_ENV)),
     { cors: true },
   );
+
+  app.use(cookieParser());
+
   /**
    * Run DB migrations
    */

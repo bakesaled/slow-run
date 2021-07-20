@@ -6,6 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardViewModule } from './dashboard-view/dashboard-view.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 
 describe('LandingViewComponent', () => {
   let component: LandingViewComponent;
@@ -20,6 +21,7 @@ describe('LandingViewComponent', () => {
         DashboardViewModule,
         HttpClientTestingModule,
       ],
+      providers: [LocalStorageService],
     }).compileComponents();
   });
 

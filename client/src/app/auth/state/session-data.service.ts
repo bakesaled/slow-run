@@ -8,4 +8,12 @@ export class SessionDataService {
   login(username: string, password: string) {
     return this.http.post<any>('auth/login', { username, password });
   }
+
+  logout(username: string) {
+    return this.http.post<any>('auth/logout', { username });
+  }
+
+  refresh(username: string) {
+    return this.http.post<any>('auth/refresh', { username });
+  }
 }

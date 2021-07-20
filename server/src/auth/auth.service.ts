@@ -6,7 +6,6 @@ import { RegistrationStatus } from './registration-status';
 import { JwtPayload } from './jwt-payload';
 import { UserDto } from '@user/dto/user.dto';
 import { LoginUserDto } from '@user/dto/login-user.dto';
-import { LoginStatus } from './login-status';
 
 @Injectable()
 export class AuthService {
@@ -31,36 +30,45 @@ export class AuthService {
     return status;
   }
 
-  async login(loginUserDto: LoginUserDto): Promise<LoginStatus> {
+  async login(loginUserDto: LoginUserDto): Promise<UserDto> {
     // find user in db
-    const user = await this.userService.findByLogin(loginUserDto);
+    return await this.userService.findByLogin(loginUserDto);
 
     // generate and sign token
-    const token = this._createToken(user);
+    // const token = this._createToken(user);
 
-    return {
-      username: user.username,
-      ...token,
-    };
+    // return {
+    //   username: user.username,
+    //   // ...token,
+    // };
   }
 
-  private _createToken({ username }: UserDto): any {
-    const user: JwtPayload = { username };
-    const accessToken = this.jwtService.sign(user, {
-      secret: process.env.SECRETKEY,
-      expiresIn: process.env.EXPIRESIN,
+  public getCookieWithJwtAccessToken({ username }: UserDto) {
+    const payload: JwtPayload = { username };
+    const token = this.jwtService.sign(payload, {
+      secret: process.env.JWT_ACCESS_TOKEN_SECRET,
+      expiresIn: parseInt(process.env.JWT_ACCESS_TOKEN_EXPIRES_IN),
     });
+    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${process.env.JWT_ACCESS_TOKEN_EXPIRES_IN}`;
+  }
+
+  public getCookieWithJwtRefreshToken({ username }: UserDto) {
+    const payload: JwtPayload = { username };
+    const token = this.jwtService.sign(payload, {
+      secret: process.env.JWT_REFRESH_TOKEN_SECRET,
+      expiresIn: parseInt(process.env.JWT_REFRESH_TOKEN_EXPIRES_IN),
+    });
+    const cookie = `Refresh=${token}; HttpOnly; Path=/; Max-Age=${process.env.JWT_REFRESH_TOKEN_EXPIRES_IN}`;
     return {
-      expiresIn: process.env.EXPIRESIN,
-      accessToken,
+      cookie,
+      token,
     };
   }
 
-  async validateUser(payload: JwtPayload): Promise<UserDto> {
-    const user = await this.userService.findByPayload(payload);
-    if (!user) {
-      throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
-    }
-    return user;
+  public getCookiesForLogOut() {
+    return [
+      'Authentication=; HttpOnly; Path=/; Max-Age=0',
+      'Refresh=; HttpOnly; Path=/; Max-Age=0',
+    ];
   }
 }

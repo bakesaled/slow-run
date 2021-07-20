@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { UserEntity } from '@user/entity/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,6 +7,7 @@ import { UserDto } from '@user/dto/user.dto';
 import { LoginUserDto } from '@user/dto/login-user.dto';
 import { CreateUserDto } from '@user/dto/create-user.dto';
 import { comparePasswords } from '@shared/utils';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -14,6 +15,52 @@ export class UserService {
     @InjectRepository(UserEntity)
     private readonly userRepo: Repository<UserEntity>,
   ) {}
+
+  async getByUsername(username: string) {
+    Logger.log('getUsername', username);
+    const user = await this.userRepo.findOne({ username });
+    if (user) {
+      return user;
+    }
+    throw new HttpException(
+      'User with this username does not exist',
+      HttpStatus.NOT_FOUND,
+    );
+  }
+
+  async getUserIfRefreshTokenMatches(refreshToken: string, username: string) {
+    const user = await this.getByUsername(username);
+
+    const isRefreshTokenMatching = await comparePasswords(
+      user.currentHashedRefreshToken,
+      refreshToken,
+    );
+
+    Logger.log('matchey', refreshToken, user.currentHashedRefreshToken);
+    if (isRefreshTokenMatching) {
+      return user;
+    }
+  }
+
+  async setCurrentRefreshToken(refreshToken: string, { username }: UserDto) {
+    const currentHashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+    Logger.log('update', username, currentHashedRefreshToken);
+    await this.userRepo.update(
+      { username },
+      {
+        currentHashedRefreshToken,
+      },
+    );
+  }
+
+  async removeRefreshToken({ username }: UserDto) {
+    return this.userRepo.update(
+      { username },
+      {
+        currentHashedRefreshToken: null,
+      },
+    );
+  }
 
   async findOne(options?: object): Promise<UserDto> {
     const user = await this.userRepo.findOne(options);

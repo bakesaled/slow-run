@@ -16,7 +16,7 @@ export class SessionQuery extends Query<SessionState> {
     return toBoolean(this.getValue().accessToken);
   }
 
-  getToken() {
-    return this.getValue().accessToken;
-  }
+  // getUsername() {
+  //   return this.getValue().username;
+  // }
 }

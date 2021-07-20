@@ -14,13 +14,14 @@ import { ActivityService } from './activity.service';
 import { ActivityCreateDto } from './dto/activity-create.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { UserDto } from '@user/dto/user.dto';
+import JwtAuthGuard from '../auth/jwt-auth.guard';
 
 @Controller('api/activities')
 export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
   @Get()
-  @UseGuards(AuthGuard())
+  @UseGuards(JwtAuthGuard)
   async findAll(): Promise<ActivityDto[]> {
     return await this.activityService.getAllActivities();
   }

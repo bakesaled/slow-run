@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { errorInterceptorProvider } from './interceptors/error.interceptor';
 import { AuthModule } from './auth/auth.module';
+import { LocalStorageService } from './services/local-storage/local-storage.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { AuthModule } from './auth/auth.module';
       },
     },
     errorInterceptorProvider,
+    LocalStorageService,
   ],
   bootstrap: [AppComponent],
 })

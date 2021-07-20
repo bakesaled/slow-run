@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Exclude } from 'class-transformer';
 
 @Entity('user')
 export class UserEntity {
@@ -30,6 +31,12 @@ export class UserEntity {
   email: string;
   @CreateDateColumn() createdOn?: Date;
   @CreateDateColumn() updatedOn?: Date;
+
+  @Column({
+    nullable: true,
+  })
+  @Exclude()
+  public currentHashedRefreshToken?: string;
 
   @BeforeInsert() async hashPassword() {
     this.password = await bcrypt.hash(this.password, 10);

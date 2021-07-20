@@ -3,6 +3,7 @@ import { SessionStore } from './session.store';
 import { tap } from 'rxjs/operators';
 import { SessionState } from './session.model';
 import { SessionDataService } from './session-data.service';
+import { of } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SessionService {
@@ -20,6 +21,14 @@ export class SessionService {
   }
 
   logout() {
-    this.sessionStore.logout();
+    const username = this.sessionStore.getValue().username;
+    if (username) {
+      return this.sessionDataService.logout(username).pipe(
+        tap((_) => {
+          this.sessionStore.logout();
+        })
+      );
+    }
+    return of(undefined);
   }
 }
