@@ -9,11 +9,11 @@ export class SessionDataService {
     return this.http.post<any>('auth/login', { username, password });
   }
 
-  logout(username: string) {
-    return this.http.post<any>('auth/logout', { username });
+  logout() {
+    return this.http.post<any>('auth/logout', {});
   }
 
-  refresh(username: string) {
-    return this.http.post<any>('auth/refresh', { username });
+  refresh(token: string) {
+    return this.http.get<any>('auth/refresh?token=' + token);
   }
 }

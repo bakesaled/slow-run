@@ -21,14 +21,27 @@ export class SessionService {
   }
 
   logout() {
-    const username = this.sessionStore.getValue().username;
-    if (username) {
-      return this.sessionDataService.logout(username).pipe(
+    const token = this.sessionStore.getValue().refreshToken;
+    if (token) {
+      this.sessionStore.logout();
+      return this.sessionDataService.logout().pipe(
         tap((_) => {
-          this.sessionStore.logout();
+          // this.sessionStore.logout();
         })
       );
     }
     return of(undefined);
+  }
+
+  refreshToken() {
+    const token = this.sessionStore.getValue().refreshToken;
+    if (token) {
+      return this.sessionDataService.refresh(token).pipe(
+        tap((sessionState: SessionState) => {
+          return this.sessionStore.login(sessionState);
+        })
+      );
+    }
+    return of({});
   }
 }

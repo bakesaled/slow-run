@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '@user/user.service';
 import { CreateUserDto } from '@user/dto/create-user.dto';
@@ -49,7 +49,11 @@ export class AuthService {
       secret: process.env.JWT_ACCESS_TOKEN_SECRET,
       expiresIn: parseInt(process.env.JWT_ACCESS_TOKEN_EXPIRES_IN),
     });
-    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${process.env.JWT_ACCESS_TOKEN_EXPIRES_IN}`;
+    const cookie = `Authentication=${token}; HttpOnly; Path=/; Max-Age=${process.env.JWT_ACCESS_TOKEN_EXPIRES_IN}`;
+    return {
+      cookie,
+      token,
+    };
   }
 
   public getCookieWithJwtRefreshToken({ username }: UserDto) {
@@ -58,7 +62,7 @@ export class AuthService {
       secret: process.env.JWT_REFRESH_TOKEN_SECRET,
       expiresIn: parseInt(process.env.JWT_REFRESH_TOKEN_EXPIRES_IN),
     });
-    const cookie = `Refresh=${token}; HttpOnly; Path=/; Max-Age=${process.env.JWT_REFRESH_TOKEN_EXPIRES_IN}`;
+    const cookie = `Refresh=${token}; HttpOnly; Path=/auth/refresh; Max-Age=${process.env.JWT_REFRESH_TOKEN_EXPIRES_IN}`;
     return {
       cookie,
       token,

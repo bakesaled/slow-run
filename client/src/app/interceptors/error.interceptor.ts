@@ -8,14 +8,20 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SessionService } from '../auth/state/session.service';
+import { SessionQuery } from '../auth/state/session.query';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private sessionService: SessionService,
+    private sessionQuery: SessionQuery
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -36,8 +42,15 @@ export class ErrorInterceptor implements HttpInterceptor {
             : errorResponse.toString();
         }
 
-        if (errorResponse.status === 401) {
-          this.router.navigate(['./login']);
+        if (errorResponse.status === 401 && this.sessionQuery.isLoggedIn()) {
+          this.sessionService
+            .logout()
+            .pipe(
+              tap(() => {
+                this.router.navigate(['/login']);
+              })
+            )
+            .subscribe();
         }
         // re-throw
         return throwError(errMsg);

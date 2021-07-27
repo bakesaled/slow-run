@@ -15,6 +15,7 @@ import {
 import { catchError } from 'rxjs/operators';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LocalStorageService } from '../services/local-storage/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -39,6 +40,9 @@ describe('ErrorInterceptor', () => {
         NoopAnimationsModule,
         RouterTestingModule,
       ],
+      providers: [
+        LocalStorageService
+      ]
     });
     httpMock = TestBed.inject(HttpTestingController);
     service = TestBed.inject(MockHttpService);

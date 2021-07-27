@@ -59,20 +59,34 @@ export class AuthController {
     );
 
     request.res.setHeader('Set-Cookie', [
-      accessTokenCookie,
+      accessTokenCookie.cookie,
       refreshTokenCookie.cookie,
     ]);
+    user.refreshToken = refreshTokenCookie.token;
     return user;
   }
 
   @UseGuards(JwtRefreshGuard)
   @Get('refresh')
-  refresh(@Req() request: RequestWithUser) {
+  public async refresh(@Req() request: RequestWithUser) {
     const accessTokenCookie = this.authService.getCookieWithJwtAccessToken(
       request.user,
     );
 
-    request.res.setHeader('Set-Cookie', accessTokenCookie);
+    const refreshTokenCookie = this.authService.getCookieWithJwtRefreshToken(
+      request.user,
+    );
+
+    await this.userService.setCurrentRefreshToken(
+      refreshTokenCookie.token,
+      request.user,
+    );
+
+    request.res.setHeader('Set-Cookie', [
+      accessTokenCookie.cookie,
+      refreshTokenCookie.cookie,
+    ]);
+    request.user.refreshToken = refreshTokenCookie.token;
     return request.user;
   }
 

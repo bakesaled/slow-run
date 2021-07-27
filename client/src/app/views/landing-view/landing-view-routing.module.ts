@@ -31,11 +31,11 @@ const routes: Routes = [
             (module) => module.ActivityViewModule
           ),
       },
-      // {
-      //   path: '**',
-      //   redirectTo: 'dashboard',
-      //   pathMatch: 'full',
-      // },
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
     ],
   },
 ];

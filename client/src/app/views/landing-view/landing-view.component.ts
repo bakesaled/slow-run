@@ -4,6 +4,7 @@ import { SidenavUiService } from './state/sidenav-ui.service';
 import { Router } from '@angular/router';
 import { SessionService } from '../../auth/state/session.service';
 import { SessionQuery } from '../../auth/state/session.query';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-landing-view',
@@ -27,7 +28,13 @@ export class LandingViewComponent implements OnInit {
   }
 
   onLogoutButtonClick() {
-    this.sessionService.logout();
-    this.router.navigate(['/login']);
+    this.sessionService
+      .logout()
+      .pipe(
+        tap(() => {
+          this.router.navigate(['/login']);
+        })
+      )
+      .subscribe();
   }
 }

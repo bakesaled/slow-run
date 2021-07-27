@@ -4,4 +4,6 @@ export class UserDto {
   @IsNotEmpty() id: string;
   @IsNotEmpty() username: string;
   @IsNotEmpty() @IsEmail() email: string;
+  accessToken?: string;
+  refreshToken?: string;
 }
